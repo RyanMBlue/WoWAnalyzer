@@ -1,8 +1,9 @@
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
+import { URSINE_FURY_BEAST_TO_BEAR_SUMMON } from 'analysis/retail/hunter/shared/normalizers/HunterEventLinkNormalizers';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HasRelatedEvent, SummonEvent } from 'parser/core/Events';
 import { encodeEventSourceString, encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -45,6 +46,10 @@ class DireBeast extends Analyzer {
   }
 
   onDireSummon(event: SummonEvent) {
+    // Dire Beasts that come with Howl of the Pack Leader's Bear belong to Ursine Fury
+    if (HasRelatedEvent(event, URSINE_FURY_BEAST_TO_BEAR_SUMMON)) {
+      return;
+    }
     if (
       event.timestamp - this.lastKillCommandCast < MS_BUFFER_100 &&
       this.selectedCombatant.hasTalent(TALENTS.DIRE_COMMAND_TALENT)

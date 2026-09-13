@@ -9,6 +9,8 @@ export const SV_MB_CLEAVE = 'mb_cleave';
 export const STAMPEDE_READY_TO_DAMAGE = 'stampede_ready_to_damage';
 export const BOAR_TO_HOGSTRIDER_DAMAGE = 'boar_to_hogstrider_damage';
 export const BOAR_TO_KILL_COMMAND = 'boar_to_kill_command';
+export const BEAR_SUMMON_TO_URSINE_FURY_BEAST = 'bear_summon_to_ursine_fury_beast';
+export const URSINE_FURY_BEAST_TO_BEAR_SUMMON = 'ursine_fury_beast_to_bear_summon';
 const stampedeDamageBuffer = 10_000;
 const boarDamageBuffer = 5_000;
 const links: EventLink[] = [
@@ -62,6 +64,22 @@ const links: EventLink[] = [
     forwardBufferMs: 100,
     backwardBufferMs: 100,
     maximumLinks: 1,
+  },
+  {
+    // Ursine Fury's 2 Dire Beasts are logged just before the Bear summon they come with. Relies on
+    // Beast Mastery's DireBeastSummonNormalizer having unified the Dire Beast summon IDs first.
+    linkRelation: BEAR_SUMMON_TO_URSINE_FURY_BEAST,
+    reverseLinkRelation: URSINE_FURY_BEAST_TO_BEAR_SUMMON,
+    linkingEventType: EventType.Summon,
+    linkingEventId: SPELLS.HOWL_OF_THE_PACKLEADER_BEAR_SUMMON.id,
+    referencedEventType: EventType.Summon,
+    referencedEventId: SPELLS.DIRE_BEAST_SUMMON.id,
+    anyTarget: true,
+    anySource: false,
+    forwardBufferMs: 0,
+    backwardBufferMs: 50,
+    maximumLinks: 2,
+    isActive: (c) => c.hasTalent(TALENTS.URSINE_FURY_TALENT),
   },
 ];
 

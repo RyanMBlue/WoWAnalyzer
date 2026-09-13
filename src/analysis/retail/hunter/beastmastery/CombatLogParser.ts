@@ -27,6 +27,7 @@ import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stomp from './modules/talents/Stomp';
+import UrsineFury from './modules/talents/UrsineFury';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import Guide from './modules/guide/Guide';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     scentOfBlood: ScentOfBlood,
     stomp: Stomp,
     tranquilizingShot: TranquilizingShot,
+    ursineFury: UrsineFury,
     warOrders: WarOrders,
 
     //Items

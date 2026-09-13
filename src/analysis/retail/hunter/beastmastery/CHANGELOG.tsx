@@ -7,6 +7,15 @@ export default [
   change(
     date(2026, 9, 12),
     <>
+      Added a statistic for <SpellLink spell={TALENTS_HUNTER.URSINE_FURY_TALENT} />, and stopped
+      counting its Dire Beasts toward <SpellLink spell={TALENTS_HUNTER.DIRE_COMMAND_TALENT} /> and{' '}
+      <SpellLink spell={TALENTS_HUNTER.DIRE_BEAST_TALENT} />
+    </>,
+    LittleBoyBlu,
+  ),
+  change(
+    date(2026, 9, 12),
+    <>
       Fixed <SpellLink spell={TALENTS_HUNTER.DIRE_BEAST_TALENT} /> and{' '}
       <SpellLink spell={TALENTS_HUNTER.DIRE_COMMAND_TALENT} /> showing 0 damage, caused by Dire
       Beast summons using spell IDs that weren't recognized

@@ -1,10 +1,11 @@
 import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter/beastmastery/constants';
 import { MS_BUFFER_50 } from 'analysis/retail/hunter/shared/constants';
+import { URSINE_FURY_BEAST_TO_BEAR_SUMMON } from 'analysis/retail/hunter/shared/normalizers/HunterEventLinkNormalizers';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HasRelatedEvent, SummonEvent } from 'parser/core/Events';
 import { encodeEventSourceString, encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -22,7 +23,6 @@ class DireCommand extends Analyzer {
   direCommandProcs = 0;
   killCommandCasts = 0;
   lastKillCommandCast = 0;
-  direCommandsRegisteredInCurrentKillCommand = 0;
 
   constructor(options: Options) {
     super(options);
@@ -40,15 +40,11 @@ class DireCommand extends Analyzer {
   }
 
   direBeastSummon(event: SummonEvent) {
+    // Dire Beasts that come with Howl of the Pack Leader's Bear belong to Ursine Fury
+    if (HasRelatedEvent(event, URSINE_FURY_BEAST_TO_BEAR_SUMMON)) {
+      return;
+    }
     if (this.lastKillCommandCast + MS_BUFFER_50 > event.timestamp) {
-      this.direCommandsRegisteredInCurrentKillCommand += 1;
-      // The bear from Howl of the Pack Leader will summon 2 dire beasts
-      if (
-        this.direCommandsRegisteredInCurrentKillCommand <= 2 &&
-        this.selectedCombatant.hasBuff(SPELLS.HOWL_OF_THE_PACKLEADER_BEAR)
-      ) {
-        return;
-      }
       this.direCommandProcs += 1;
       const targetId = encodeEventTargetString(event);
       if (targetId) {
@@ -70,7 +66,6 @@ class DireCommand extends Analyzer {
   killCommandCast(event: CastEvent) {
     this.killCommandCasts += 1;
     this.lastKillCommandCast = event.timestamp;
-    this.direCommandsRegisteredInCurrentKillCommand = 0;
   }
 
   statistic() {
