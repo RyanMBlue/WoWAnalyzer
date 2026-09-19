@@ -171,6 +171,11 @@ const spells = {
     name: 'Elemental Overload',
     icon: 'spell_nature_lightningoverload',
   },
+  THUNDERSTORM: {
+    id: 51490,
+    name: 'Thunderstorm',
+    icon: 'spell_shaman_thunderstorm',
+  },
   RESONANCE_TOTEM_FULMINATION: {
     id: 202192,
     name: 'Resonance Totem',

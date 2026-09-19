@@ -79,6 +79,14 @@ class Abilities extends ClassAbilities {
         },
       },
       {
+        spell: SPELLS.THUNDERSTORM.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.TEMPEST_CAST.id,
         enabled: combatant.hasTalent(TALENTS.TEMPEST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
