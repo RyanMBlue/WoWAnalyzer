@@ -28,6 +28,30 @@ const spells = {
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
+  // Dire Beast is logged under several different summon spell IDs. Every one of them is named
+  // "Dire Beast" and summons a generic "Beast" NPC; which ID a given log uses varies, and hunters
+  // in the same fight can use different ones. See DIRE_BEAST_SUMMON_SPELLS in the Beast Mastery
+  // constants for the list these are collected into.
+  DIRE_BEAST_SUMMON_2: {
+    id: 132764,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_3: {
+    id: 212382,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_4: {
+    id: 304051,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
+  DIRE_BEAST_SUMMON_5: {
+    id: 1308188,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
   // Separate from DIRE_BEAST_SUMMON - this is the `cast` event marker attributed to the player
   // when a Dire Beast is summoned (as opposed to the `summon` event for the pet itself), which
   // shows up on the Timeline. Left unlabeled it falls back to raw report data and shows a stale ID.

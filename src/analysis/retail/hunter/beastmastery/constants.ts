@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
@@ -19,6 +20,18 @@ export const PACK_TACTICS_BARBED_SHOT_FOCUS_REGEN = 25;
 /** Dire Beast */
 //Dire Beast lasts for 8 seconds baseline
 export const DIRE_BEAST_BASE_DURATION = 8000;
+// Dire Beast summons are logged under several different spell IDs, each summoning a different
+// beast. They all share the name "Dire Beast", and hunters in the same fight can use different
+// ones, so anything listening for a Dire Beast summon has to listen for all of them.
+export const DIRE_BEAST_SUMMON_SPELLS: Spell[] = [
+  SPELLS.DIRE_BEAST_SUMMON,
+  SPELLS.DIRE_BEAST_SUMMON_2,
+  SPELLS.DIRE_BEAST_SUMMON_3,
+  SPELLS.DIRE_BEAST_SUMMON_4,
+  SPELLS.DIRE_BEAST_SUMMON_5,
+  SPELLS.DIRE_BEAST_GLYPHED,
+];
+export const DIRE_BEAST_SUMMON_IDS = DIRE_BEAST_SUMMON_SPELLS.map((spell) => spell.id);
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
